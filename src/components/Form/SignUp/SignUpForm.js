@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import app from '../../../firebase.init';
@@ -43,6 +43,10 @@ const SignUpForm = () => {
       .then(result => {
         setError('')
         console.log(result.user);
+        sendEmailVerification(auth.currentUser)
+        .then(()=>{
+          console.log('sent email')
+        })
       })
       .catch(error => {
         console.log(error);
