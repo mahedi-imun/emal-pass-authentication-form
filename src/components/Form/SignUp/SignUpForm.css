@@ -7,7 +7,7 @@
 }
 
 .signup-container-body{
-  height: 100vh;
+  height: 660px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,6 +17,7 @@
 .container{
   max-width: 700px;
   width: 100%;
+ 
   background-color:rgba(255, 255, 255, 0.829);
   padding: 25px 30px;
   border-radius: 5px;
@@ -144,4 +145,11 @@ form .user-details .input-box{
   .container .content .category{
     flex-direction: column;
   }
+}
+.signup-btn{
+  border: none;
+  color: rgb(23, 22, 22);
+  background-color: #01020600;
+  cursor: pointer;
+  text-decoration: underline;
 }

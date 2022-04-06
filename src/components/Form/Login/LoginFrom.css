@@ -115,3 +115,20 @@
 .social i{
   margin-right: 4px;
 }
+.login-body .pass-error{
+    margin-top: 5px;
+    color:#EC9219;
+    
+}
+.login-btn{
+    border: none;
+    color: floralwhite;
+    background-color: #1845ad00;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.btn-text {
+    font-size: 15px;
+    margin-right: 5px;
+    
+}

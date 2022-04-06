@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './LoginFrom.css'
-import { getAuth } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from '../../../firebase.init';
+import { useNavigate } from 'react-router-dom';
 const auth = getAuth(app);
 
-const getEmail = (e)=>{
-    console.log(e.target.value);
-
-}
-const getPassword = (e)=>{
-    console.log(e.target.value);
-}
-const handleSubmit = (e)=>{
-    console.log('submit');
-    e.preventDefault()
-}
 const LoginFrom = () => {
+    const navigate = useNavigate()
+    const [email, setEmail] = useState('')
+    const [password, setPass] = useState('')
+    const [error, setError] = useState('')
+
+    const getEmail = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const getPassword = (e) => {
+        setPass(e.target.value);
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        if (!/(?=.*[!#$%&? "])/.test(password)) {
+            setError("at least 1 special character must")
+            return
+        }
+        signInWithEmailAndPassword(auth, email, password)
+            .then(result => {
+                console.log(result);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
     return (
         <div className='login-body'>
             <div className="background">
@@ -23,16 +40,22 @@ const LoginFrom = () => {
                 <div className="shape"></div>
             </div>
             <form onSubmit={handleSubmit} >
-                <h3>Login Here</h3>
+                <h3>register hare</h3>
 
-                <label for="username">Username</label>
-                <input onBlur={getEmail} type="text" placeholder="Email or Phone" id="username" />
+                <label for="email">Email</label>
+                <input onBlur={getEmail} type="email" required placeholder="Email" id="username" />
 
                 <label for="password">Password</label>
-                <input onBlur={getPassword} type="password" placeholder="Password" id="password" />
+                <input onBlur={getPassword} type="password" placeholder="Password" id="password" required />
+                <small className='pass-error'>{error}</small>
+                <input className='button' type="submit" value="Login" />
+                <div>
+                    <span className='btn-text'>Don’t have a account?</span>
+                    <button className='login-btn' onClick={() => navigate('/register')}> register</button>
+                </div>
 
-                <input className='button' type="submit" value="submit" />
             </form>
+
         </div>
     );
 };
