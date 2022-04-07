@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './LoginFrom.css'
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import app from '../../../firebase.init';
 import { useNavigate } from 'react-router-dom';
 const auth = getAuth(app);
@@ -33,6 +33,15 @@ const LoginFrom = () => {
                 console.log(error);
             })
     }
+    const handleForgotPass =()=>{
+        sendPasswordResetEmail(auth, email)
+        .then(()=>{
+            console.log('sent mail');
+        })
+        .catch(error =>{
+            console.log(error);
+        })
+    }
     return (
         <div className='login-body'>
             <div className="background">
@@ -48,8 +57,11 @@ const LoginFrom = () => {
                 <label for="password">Password</label>
                 <input onBlur={getPassword} type="password" placeholder="Password" id="password" required />
                 <small className='pass-error'>{error}</small>
+                <button onChange={handleForgotPass} className='login-btn'><small>forgot password</small></button>
                 <input className='button' type="submit" value="Login" />
+                
                 <div>
+                    
                     <span className='btn-text'>Don’t have a account?</span>
                     <button className='login-btn' onClick={() => navigate('/register')}> register</button>
                 </div>
